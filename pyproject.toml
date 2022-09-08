@@ -18,6 +18,9 @@ setuptools-rust = "1.0.0"
 transformers = "^4.21.3"
 matplotlib = "^3.5.3"
 poethepoet = "^0.16.2"
+torchmetrics = "^0.9.3"
+tensorboard = "^2.10.0"
+torch-tb-profiler = "^0.4.0"
 
 
 [tool.poetry.group.dev.dependencies]

@@ -1317,6 +1317,23 @@ python-versions = ">=3.7.0"
 typing-extensions = "*"
 
 [[package]]
+name = "torch-tb-profiler"
+version = "0.4.0"
+description = "PyTorch Profiler TensorBoard Plugin"
+category = "main"
+optional = false
+python-versions = ">=3.6.2"
+
+[package.dependencies]
+pandas = ">=1.0.0"
+tensorboard = ">=1.15,<2.1.0 || >2.1.0"
+
+[package.extras]
+blob = ["azure-storage-blob"]
+gs = ["google-cloud-storage"]
+s3 = ["boto3"]
+
+[[package]]
 name = "torchmetrics"
 version = "0.9.3"
 description = "PyTorch native Metrics"
@@ -1542,7 +1559,7 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.9,<3.11"
-content-hash = "d42d6091b48fc01a115bccb8a08e0a8a670cc2e2a9de9acfa51231b941166b61"
+content-hash = "89bb855c5f53a9e1722a6429dd03ab4889a82a9f86d2f9d5e6e8895acb5d1c84"
 
 [metadata.files]
 absl-py = [
@@ -2919,6 +2936,10 @@ torch = [
     {file = "torch-1.12.1-cp39-cp39-win_amd64.whl", hash = "sha256:f00c721f489089dc6364a01fd84906348fe02243d0af737f944fddb36003400d"},
     {file = "torch-1.12.1-cp39-none-macosx_10_9_x86_64.whl", hash = "sha256:bfec2843daa654f04fda23ba823af03e7b6f7650a873cdb726752d0e3718dada"},
     {file = "torch-1.12.1-cp39-none-macosx_11_0_arm64.whl", hash = "sha256:69fe2cae7c39ccadd65a123793d30e0db881f1c1927945519c5c17323131437e"},
+]
+torch-tb-profiler = [
+    {file = "torch_tb_profiler-0.4.0-py3-none-any.whl", hash = "sha256:8740dedf6a33184fcb7ab04cb50a7c4330d2134d15549101e4b8e62d78280995"},
+    {file = "torch_tb_profiler-0.4.0.tar.gz", hash = "sha256:5f24c97963fa934aea3a0867a0883933909e20e7321efd8388a97e3ed4a8fc3c"},
 ]
 torchmetrics = [
     {file = "torchmetrics-0.9.3-py3-none-any.whl", hash = "sha256:3babb9e75d223512621af69a84eabf52b621a4f768b83f86701d66d09abed80b"},

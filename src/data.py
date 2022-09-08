@@ -33,7 +33,7 @@ class WineDataModule(pl.LightningDataModule):
         self.idx_to_label = list(data["region_variety"].unique())
         self.label_to_idx = {label: idx for idx, label in enumerate(self.idx_to_label)}
         self.num_classes = len(self.idx_to_label)
-        with open("data/idx_to_label.json", "w") as f:
+        with open("models/idx_to_label.json", "w") as f:
             json.dump(self.idx_to_label, f)
             f.write("\n")
 

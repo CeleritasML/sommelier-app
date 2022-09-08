@@ -33,6 +33,7 @@ class WineDataModule(pl.LightningDataModule):
         self.label_to_idx = {label: idx for idx, label in enumerate(self.idx_to_label)}
         with open("data/idx_to_label.json", "w") as f:
             json.dump(self.idx_to_label, f)
+            f.write("\n")
 
         train_indices, test_indices, _, _ = train_test_split(
             range(data.shape[0]),
@@ -93,4 +94,5 @@ class WineDataModule(pl.LightningDataModule):
 if __name__ == "__main__":
     dm = WineDataModule()
     dm.prepare_data()
-    print(dm.dataset["train"][0])
+    dm.setup("fit")
+    print(next(iter(dm.train_dataloader())))

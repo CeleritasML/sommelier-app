@@ -51,10 +51,10 @@ class WineBert(pl.LightningModule):
         metric = Accuracy(top_k=5)
         val_accuracy = metric(logits, labels)
         self.log("val_accuracy", val_accuracy, prog_bar=True)
-    
+
     def test_step(self, batch, batch_idx):
         return self.validation_step(batch, batch_idx)
-    
+
     def test_epoch_end(self, outputs):
         self.validation_epoch_end(outputs)
 

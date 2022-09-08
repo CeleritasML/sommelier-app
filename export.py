@@ -20,7 +20,7 @@ if __name__ == "__main__":
     torch.onnx.export(
         module.model,
         tuple(example_input.values()),
-        f=args.output_path, 
+        f=args.output_path,
         input_names=["input_ids", "attention_mask", "token_type_ids"],
         output_names=["logits"],
         dynamic_axes={

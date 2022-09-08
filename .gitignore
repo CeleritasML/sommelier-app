@@ -325,3 +325,6 @@ cython_debug/
 data/winemag-data-130k-v2.csv
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,jetbrains,python,jupyternotebooks
+
+# lightning experiment log
+lightning_logs/

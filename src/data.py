@@ -14,7 +14,8 @@ class WineDataModule(pl.LightningDataModule):
         data_path: str = "data/wine_cleaned.csv",
         max_seq_length: int = 200,
         train_batch_size: int = 32,
-        val_batch_size: int = 32,
+        eval_batch_size: int = 32,
+        num_workers: int = 4,
         random_seed: int = 42,
     ):
         super().__init__()
@@ -22,7 +23,8 @@ class WineDataModule(pl.LightningDataModule):
         self.data_path = data_path
         self.max_seq_length = max_seq_length
         self.train_batch_size = train_batch_size
-        self.val_batch_size = val_batch_size
+        self.eval_batch_size = eval_batch_size
+        self.num_workers = num_workers
         self.random_seed = random_seed
 
     def prepare_data(self):
@@ -31,6 +33,7 @@ class WineDataModule(pl.LightningDataModule):
         data = pd.read_csv(self.data_path)
         self.idx_to_label = list(data["region_variety"].unique())
         self.label_to_idx = {label: idx for idx, label in enumerate(self.idx_to_label)}
+        self.num_classes = len(self.idx_to_label)
         with open("data/idx_to_label.json", "w") as f:
             json.dump(self.idx_to_label, f)
             f.write("\n")
@@ -70,14 +73,23 @@ class WineDataModule(pl.LightningDataModule):
         return DataLoader(
             self.dataset["train"],
             batch_size=self.train_batch_size,
+            num_workers=self.num_workers,
             shuffle=True,
         )
 
     def val_dataloader(self):
-        return DataLoader(self.dataset["val"], batch_size=self.eval_batch_size)
+        return DataLoader(
+            self.dataset["val"],
+            batch_size=self.eval_batch_size,
+            num_workers=self.num_workers,
+        )
 
     def test_dataloader(self):
-        return DataLoader(self.dataset["test"], batch_size=self.eval_batch_size)
+        return DataLoader(
+            self.dataset["test"],
+            batch_size=self.eval_batch_size,
+            num_workers=self.num_workers,
+        )
 
     def _convert_to_features(self, examples):
         features = self.tokenizer.batch_encode_plus(

@@ -1,5 +1,6 @@
 import pytorch_lightning as pl
 import torch
+from torchmetrics import Accuracy
 from transformers import (
     AdamW,
     AutoModelForSequenceClassification,
@@ -42,7 +43,14 @@ class WineBert(pl.LightningModule):
         preds = torch.argmax(logits, dim=1)
         self.log("val_loss", val_loss, prog_bar=True)
         labels = batch["labels"]
-        return {"loss": val_loss, "preds": preds, "labels": labels}
+        return {"loss": val_loss, "logits": logits, "preds": preds, "labels": labels}
+
+    def validation_epoch_end(self, outputs):
+        logits = torch.cat([x["logits"] for x in outputs]).detach().cpu()
+        labels = torch.cat([x["labels"] for x in outputs]).detach().cpu()
+        metric = Accuracy(top_k=5)
+        val_accuracy = metric(logits, labels)
+        self.log("val_accuracy", val_accuracy, prog_bar=True)
 
     def configure_optimizers(self):
         model = self.model

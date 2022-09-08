@@ -20,3 +20,10 @@ pre-commit install
 ```
 poetry shell
 ```
+
+# Train Model
+
+```
+# run this command in poetry env
+python train.py
+```

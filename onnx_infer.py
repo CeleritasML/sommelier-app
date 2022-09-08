@@ -9,8 +9,12 @@ if __name__ == "__main__":
         idx_to_label = json.load(f)
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     sess = ort.InferenceSession("models/bert-mini-50epoch.onnx")
-    inputs = tokenizer("This is a test", return_tensors="np")
-    output = sess.run(output_names=["logits"], input_feed=dict(inputs))
-    top5_idx = np.argpartition(output[0][0], -5)[-5:]
-    print("Top 5 predictions:")
-    print([idx_to_label[idx] for idx in top5_idx])
+    while True:
+        text = input("Enter text: ")
+        if text == "exit":
+            break
+        inputs = tokenizer(text, return_tensors="np")
+        output = sess.run(output_names=["logits"], input_feed=dict(inputs))
+        top5_idx = np.argpartition(output[0][0], -5)[-5:]
+        print("Top 5 predictions:")
+        print([idx_to_label[idx] for idx in top5_idx])

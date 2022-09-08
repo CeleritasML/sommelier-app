@@ -15,7 +15,6 @@ class WineDataModule(pl.LightningDataModule):
         max_seq_length: int = 200,
         train_batch_size: int = 32,
         eval_batch_size: int = 32,
-        num_workers: int = 4,
         random_seed: int = 42,
     ):
         super().__init__()
@@ -24,11 +23,11 @@ class WineDataModule(pl.LightningDataModule):
         self.max_seq_length = max_seq_length
         self.train_batch_size = train_batch_size
         self.eval_batch_size = eval_batch_size
-        self.num_workers = num_workers
+        self.num_workers = 0
         self.random_seed = random_seed
 
     def prepare_data(self):
-        self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+        tokenizer = AutoTokenizer.from_pretrained(self.model_name)
 
         data = pd.read_csv(self.data_path)
         self.idx_to_label = list(data["region_variety"].unique())
@@ -61,7 +60,7 @@ class WineDataModule(pl.LightningDataModule):
 
         self.dataset = {"train": train_set, "val": val_set, "test": test_set}
         for split in self.dataset:
-            features = self._convert_to_features(self.dataset[split])
+            features = self._convert_to_features(tokenizer, self.dataset[split])
             subset = datasets.Dataset.from_dict(features)
             subset.set_format(type="torch", columns=list(features.keys()))
             self.dataset[split] = subset
@@ -91,8 +90,8 @@ class WineDataModule(pl.LightningDataModule):
             num_workers=self.num_workers,
         )
 
-    def _convert_to_features(self, examples):
-        features = self.tokenizer.batch_encode_plus(
+    def _convert_to_features(self, tokenizer, examples):
+        features = tokenizer.batch_encode_plus(
             examples["description"].tolist(),
             max_length=self.max_seq_length,
             padding="max_length",

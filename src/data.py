@@ -13,7 +13,7 @@ class WineDataModule(pl.LightningDataModule):
         model_name: str = "bert-base-uncased",
         data_path: str = "data/wine_cleaned.csv",
         max_seq_length: int = 200,
-        train_batch_size: int = 32,
+        train_batch_size: int = 256,
         eval_batch_size: int = 32,
         random_seed: int = 42,
     ):

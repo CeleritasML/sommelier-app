@@ -10,8 +10,8 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     sess = ort.InferenceSession("models/bert-mini-50epoch.onnx")
     while True:
-        text = input("Enter text: ")
-        if text == "exit":
+        text = input("Enter text of wine [q to quit]: ")
+        if text == "q":
             break
         inputs = tokenizer(text, return_tensors="np")
         output = sess.run(output_names=["logits"], input_feed=dict(inputs))

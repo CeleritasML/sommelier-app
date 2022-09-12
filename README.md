@@ -6,6 +6,8 @@
 # Install Rust (if you're using M1 chip)
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 source "$HOME/.cargo/env"
+# Install cmake and protobuf (if you're using M1 chip)
+brew install cmake protobuf
 
 # Install Python Dependencies
 poetry install

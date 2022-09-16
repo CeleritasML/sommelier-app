@@ -13,7 +13,7 @@ class WineBert(pl.LightningModule):
     def __init__(
         self,
         model_name: str = "google/bert_uncased_L-4_H-256_A-4",
-        num_classes: int = 2034,
+        num_classes: int = 584,
         learning_rate: float = 1e-4,
         adam_epsilon: float = 1e-8,
         warmup_steps: int = 0,
@@ -32,31 +32,39 @@ class WineBert(pl.LightningModule):
     def forward(self, **inputs):
         return self.model(**inputs)
 
+    def _compute_accuracy(self, outputs):
+        logits = torch.cat([x["logits"] for x in outputs]).detach().cpu()
+        labels = torch.cat([x["labels"] for x in outputs]).detach().cpu()
+        metric = Accuracy(top_k=5)
+        return metric(logits, labels)
+
     def training_step(self, batch, batch_idx):
         outputs = self(**batch)
-        loss = outputs[0]
-        return loss
+        loss, logits = outputs[:2]
+        self.log("train_loss", loss, prog_bar=True)
+        return {"loss": loss, "logits": logits, "labels": batch["labels"]}
+
+    def training_epoch_end(self, outputs):
+        train_accuracy = self._compute_accuracy(outputs)
+        self.log("train_accuracy", train_accuracy, prog_bar=True)
 
     def validation_step(self, batch, batch_idx):
         outputs = self(**batch)
         val_loss, logits = outputs[:2]
-        preds = torch.argmax(logits, dim=1)
         self.log("val_loss", val_loss, prog_bar=True)
-        labels = batch["labels"]
-        return {"loss": val_loss, "logits": logits, "preds": preds, "labels": labels}
+        return {"loss": val_loss, "logits": logits, "labels": batch["labels"]}
 
     def validation_epoch_end(self, outputs):
-        logits = torch.cat([x["logits"] for x in outputs]).detach().cpu()
-        labels = torch.cat([x["labels"] for x in outputs]).detach().cpu()
-        metric = Accuracy(top_k=5)
-        val_accuracy = metric(logits, labels)
+        val_accuracy = self._compute_accuracy(outputs)
         self.log("val_accuracy", val_accuracy, prog_bar=True)
 
     def test_step(self, batch, batch_idx):
-        return self.validation_step(batch, batch_idx)
+        outputs = self(**batch)
+        return {"logits": outputs[1], "labels": batch["labels"]}
 
     def test_epoch_end(self, outputs):
-        self.validation_epoch_end(outputs)
+        test_accuracy = self._compute_accuracy(outputs)
+        self.log("test_accuracy", test_accuracy, prog_bar=True)
 
     def configure_optimizers(self):
         model = self.model

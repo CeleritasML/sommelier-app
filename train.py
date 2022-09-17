@@ -10,14 +10,19 @@ dm = WineDataModule()
 model = WineBert()
 
 checkpoint_callback = pl.callbacks.ModelCheckpoint(
-    save_top_k=10,
+    save_top_k=5,
     monitor="val_loss",
     mode="min",
     filename="ckpt-{epoch:02d}-{val_loss:.2f}-{val_accuracy:.4f}",
 )
 
 early_stop_callback = pl.callbacks.EarlyStopping(
-    monitor="val_accuracy", min_delta=0.1, patience=3, verbose=False, mode="max"
+    monitor="val_accuracy",
+    min_delta=0.002,
+    stopping_threshold=0.95,
+    patience=3,
+    verbose=False,
+    mode="max",
 )
 
 trainer = pl.Trainer(

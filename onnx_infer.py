@@ -5,8 +5,8 @@ from transformers import AutoTokenizer
 
 
 if __name__ == "__main__":
-    with open("models/idx_to_label.json", "r") as f:
-        idx_to_label = json.load(f)
+    with open("models/idx_to_keywords.json", "r") as f:
+        idx_to_keywords = json.load(f)
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
     sess = ort.InferenceSession("models/bert-mini-50epoch.onnx")
     while True:
@@ -15,6 +15,8 @@ if __name__ == "__main__":
             break
         inputs = tokenizer(text, return_tensors="np")
         output = sess.run(output_names=["logits"], input_feed=dict(inputs))
-        top5_idx = np.argpartition(output[0][0], -5)[-5:]
+        logits = output[0][0]
+        top5_idx = logits.argsort()[-5:][::-1]
         print("Top 5 predictions:")
-        print([idx_to_label[idx] for idx in top5_idx])
+        for idx in top5_idx:
+            print(f"{idx_to_keywords[idx]})")

@@ -1,5 +1,4 @@
 import json
-import numpy as np
 import onnxruntime as ort
 from transformers import AutoTokenizer
 

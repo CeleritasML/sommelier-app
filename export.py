@@ -6,7 +6,6 @@ from src.model import WineBert
 
 
 if __name__ == "__main__":
-    # python export.py --ckpt_path lightning_logs/version_6/checkpoints/ckpt-epoch=49-val_loss=0.61-val_accuracy=0.9533.ckpt --output_path models/bert-mini-50epoch.onnx
     parser = argparse.ArgumentParser()
     parser.add_argument("--ckpt_path", type=str, required=True)
     parser.add_argument("--output_path", type=str, required=True)

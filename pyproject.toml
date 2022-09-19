@@ -28,6 +28,7 @@ onnxruntime = "^1.12.1"
 black = {extras = ["jupyter"], version = "^22.8.0"}
 pre-commit = "^2.20.0"
 ipykernel = "^6.15.2"
+flake8 = "^5.0.4"
 
 [tool.poe.tasks]
 install-ltt = "python3 -m pip install light-the-torch"

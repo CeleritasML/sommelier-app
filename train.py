@@ -11,8 +11,8 @@ model = WineBert()
 
 checkpoint_callback = pl.callbacks.ModelCheckpoint(
     save_top_k=5,
-    monitor="val_loss",
-    mode="min",
+    monitor="val_accuracy",
+    mode="max",
     filename="ckpt-{epoch:02d}-{val_loss:.2f}-{val_accuracy:.4f}",
 )
 

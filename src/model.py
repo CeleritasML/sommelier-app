@@ -13,13 +13,13 @@ class WineBert(pl.LightningModule):
     def __init__(
         self,
         model_name: str = "google/bert_uncased_L-4_H-256_A-4",
-        num_classes: int = 584,
+        num_classes: int = 858,
         learning_rate: float = 1e-4,
         adam_epsilon: float = 1e-8,
-        warmup_steps: int = 0,
+        warmup_steps: int = 1000,
         weight_decay: float = 0.0,
         train_batch_size: int = 256,
-        val_batch_size: int = 32,
+        val_batch_size: int = 256,
         **kwargs,
     ):
         super().__init__()
@@ -46,7 +46,7 @@ class WineBert(pl.LightningModule):
 
     def training_epoch_end(self, outputs):
         train_accuracy = self._compute_accuracy(outputs)
-        self.log("train_accuracy", train_accuracy, prog_bar=True)
+        self.log("train_accuracy", train_accuracy)
 
     def validation_step(self, batch, batch_idx):
         outputs = self(**batch)
@@ -56,7 +56,7 @@ class WineBert(pl.LightningModule):
 
     def validation_epoch_end(self, outputs):
         val_accuracy = self._compute_accuracy(outputs)
-        self.log("val_accuracy", val_accuracy, prog_bar=True)
+        self.log("val_accuracy", val_accuracy)
 
     def test_step(self, batch, batch_idx):
         outputs = self(**batch)
@@ -64,7 +64,7 @@ class WineBert(pl.LightningModule):
 
     def test_epoch_end(self, outputs):
         test_accuracy = self._compute_accuracy(outputs)
-        self.log("test_accuracy", test_accuracy, prog_bar=True)
+        self.log("test_accuracy", test_accuracy)
 
     def configure_optimizers(self):
         model = self.model

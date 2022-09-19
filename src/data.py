@@ -13,7 +13,7 @@ class WineDataModule(pl.LightningDataModule):
         data_path: str = "data/wine_cleaned_{split}.csv",
         max_seq_length: int = 200,
         train_batch_size: int = 256,
-        eval_batch_size: int = 32,
+        eval_batch_size: int = 256,
         random_seed: int = 42,
     ):
         super().__init__()

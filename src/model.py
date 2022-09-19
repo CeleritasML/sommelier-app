@@ -13,7 +13,7 @@ class WineBert(pl.LightningModule):
     def __init__(
         self,
         model_name: str = "google/bert_uncased_L-4_H-256_A-4",
-        num_classes: int = 858,
+        num_classes: int = 584,
         learning_rate: float = 1e-4,
         adam_epsilon: float = 1e-8,
         warmup_steps: int = 1000,

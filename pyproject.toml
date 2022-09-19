@@ -22,6 +22,8 @@ torchmetrics = "^0.9.3"
 tensorboard = "^2.10.0"
 torch-tb-profiler = "^0.4.0"
 onnxruntime = "^1.12.1"
+spacy = "^3.4.1"
+pandarallel = "^1.6.3"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -29,6 +31,8 @@ black = {extras = ["jupyter"], version = "^22.8.0"}
 pre-commit = "^2.20.0"
 ipykernel = "^6.15.2"
 flake8 = "^5.0.4"
+jupyter = "^1.0.0"
+notebook = "^6.4.12"
 
 [tool.poe.tasks]
 install-ltt = "python3 -m pip install light-the-torch"

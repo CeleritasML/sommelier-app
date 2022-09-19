@@ -18,4 +18,4 @@ if __name__ == "__main__":
         top5_idx = logits.argsort()[-5:][::-1]
         print("Top 5 predictions:")
         for idx in top5_idx:
-            print(f"{idx_to_keywords[idx]})")
+            print(idx_to_keywords[idx])

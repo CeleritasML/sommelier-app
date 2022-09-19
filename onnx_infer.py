@@ -7,7 +7,7 @@ if __name__ == "__main__":
     with open("models/idx_to_keywords.json", "r") as f:
         idx_to_keywords = json.load(f)
     tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
-    sess = ort.InferenceSession("models/bert-mini-50epoch.onnx")
+    sess = ort.InferenceSession("models/bert-mini-finetune.onnx")
     while True:
         text = input("Enter text of wine [q to quit]: ")
         if text == "q":

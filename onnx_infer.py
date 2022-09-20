@@ -1,4 +1,5 @@
 import json
+import numpy as np
 import onnxruntime as ort
 from transformers import AutoTokenizer
 
@@ -15,7 +16,8 @@ if __name__ == "__main__":
         inputs = tokenizer(text, return_tensors="np")
         output = sess.run(output_names=["logits"], input_feed=dict(inputs))
         logits = output[0][0]
-        top5_idx = logits.argsort()[-5:][::-1]
+        probs = np.exp(logits) / np.sum(np.exp(logits))
+        top5_idx = probs.argsort()[-5:][::-1]
         print("Top 5 predictions:")
         for idx in top5_idx:
-            print(idx_to_keywords[idx])
+            print(f"{idx_to_keywords[idx]}: {probs[idx]:.4f}")

@@ -20,4 +20,5 @@ if __name__ == "__main__":
         top5_idx = probs.argsort()[-5:][::-1]
         print("Top 5 predictions:")
         for idx in top5_idx:
-            print(f"{idx_to_keywords[idx]}: {probs[idx]:.4f}")
+            print(f"{probs[idx]:.4f}: {idx_to_keywords[idx]['label']}")
+        print()

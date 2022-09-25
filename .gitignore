@@ -323,6 +323,7 @@ cython_debug/
 # dataset-specific
 
 data/winemag-data-130k-v2.csv
+*.npy
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,jetbrains,python,jupyternotebooks
 

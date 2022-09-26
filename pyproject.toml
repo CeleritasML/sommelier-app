@@ -24,6 +24,7 @@ torch-tb-profiler = "^0.4.0"
 onnxruntime = "^1.12.1"
 spacy = "^3.4.1"
 pandarallel = "^1.6.3"
+xgboost = "^1.6.2"
 
 
 [tool.poetry.group.dev.dependencies]

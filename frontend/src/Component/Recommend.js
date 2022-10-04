@@ -1,15 +1,14 @@
 import React from 'react';
-import { Descriptions, Typography } from '@douyinfe/semi-ui';
+import { Descriptions, Space, Tag } from '@douyinfe/semi-ui';
 
 export const Recommend = ({ recommend }) => {
-
-    const { Text } = Typography;
 
     const style = {
         boxShadow: 'var(--semi-shadow-elevated)',
         borderRadius: '4px',
         padding: '10px',
         margin: '10px',
+        width: '30%',
     };
 
     return (
@@ -21,13 +20,23 @@ export const Recommend = ({ recommend }) => {
                     <Descriptions.Item itemKey="Country">{item.country}</Descriptions.Item>
                     <Descriptions.Item itemKey="Province">{item.province}</Descriptions.Item>
                     <Descriptions.Item itemKey="Keywords">
-                        <Text ellipsis={{ showTooltip: true }} style={{ width: '200px' }}>
-                            {JSON.stringify(item.keywords)}
-                        </Text>
+                        <Space wrap>
+                            {item.common_keywords.map((keyword, idx) => (
+                                <Tag key={idx}>{keyword}</Tag>
+                            ))}
+                        </Space>
+                    </Descriptions.Item>
+                    <Descriptions.Item itemKey="Special Keywords">
+                        <Space wrap>
+                            {item.special_keywords.map((keyword, idx) => (
+                                <Tag key={idx}>{keyword}</Tag>
+                            ))}
+                        </Space>
                     </Descriptions.Item>
                     <Descriptions.Item itemKey="Score">{(item.probability * 100).toFixed(2)}</Descriptions.Item>
                 </Descriptions>
-            ))}
-        </div>
+            ))
+            }
+        </div >
     );
 }

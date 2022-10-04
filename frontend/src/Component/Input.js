@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, TextArea, Toast } from '@douyinfe/semi-ui';
+import { Button, Space, TextArea, Toast } from '@douyinfe/semi-ui';
 
 export const Input = ({ setRecommend }) => {
 
@@ -31,9 +31,9 @@ export const Input = ({ setRecommend }) => {
     };
 
     return (
-        <div>
+        <Space wrap>
             <TextArea maxCount={200} showClear value={text} onChange={setText} />
             <Button onClick={handleSubmit}>Get Recommendation</Button>
-        </div>
+        </Space>
     );
 }

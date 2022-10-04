@@ -1,13 +1,13 @@
 import json
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import numpy as np
 import onnxruntime as ort
 from transformers import AutoTokenizer
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend/build", static_url_path="/")
 CORS(app)
 
 # Load the model and tokenizer
@@ -64,6 +64,11 @@ def recommend():
         )
 
     return jsonify(predictions)
+
+
+@app.route("/")
+def serve():
+    return send_from_directory(app.static_folder, "index.html")
 
 
 if __name__ == "__main__":

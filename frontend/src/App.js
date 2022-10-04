@@ -3,6 +3,7 @@ import { Input } from './Component/Input';
 import { Recommend } from './Component/Recommend';
 import { DarkMode } from './Component/DarkMode';
 import { Layout } from '@douyinfe/semi-ui';
+import "./App.css";
 
 function App() {
 

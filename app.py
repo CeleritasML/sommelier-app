@@ -57,7 +57,8 @@ def recommend():
                 "country": country,
                 "province": province,
                 "variety": variety,
-                "keywords": idx_to_keywords[idx]["keywords"],
+                "special_keywords": idx_to_keywords[idx]["special_keywords"],
+                "common_keywords": idx_to_keywords[idx]["common_keywords"],
                 "probability": float(probs[idx]),
                 "rank": rank,
             }

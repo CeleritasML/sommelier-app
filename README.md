@@ -29,3 +29,10 @@ poetry shell
 # run this command in poetry env
 python train.py
 ```
+
+# Run Server
+
+```
+# run this command in poetry env
+python app.py
+```

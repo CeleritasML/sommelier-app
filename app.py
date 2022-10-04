@@ -47,9 +47,16 @@ def recommend():
     # Format the predictions
     predictions = []
     for rank, idx in enumerate(top5_idx):
+        label = idx_to_keywords[idx]["label"]
+        region, variety = label.split(":")
+        region_split = region.split("-")
+        country = region_split[0]
+        province = region_split[1] if len(region_split) > 1 else None
         predictions.append(
             {
-                "label": idx_to_keywords[idx]["label"],
+                "country": country,
+                "province": province,
+                "variety": variety,
                 "keywords": idx_to_keywords[idx]["keywords"],
                 "probability": float(probs[idx]),
                 "rank": rank,

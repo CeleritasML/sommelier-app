@@ -332,3 +332,5 @@ lightning_logs/
 
 # pickle files
 *.pkl
+
+.vscode/

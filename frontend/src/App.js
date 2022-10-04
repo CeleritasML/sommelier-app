@@ -2,34 +2,27 @@ import { useState } from 'react';
 import { Input } from './Component/Input';
 import { Recommend } from './Component/Recommend';
 import { DarkMode } from './Component/DarkMode';
-import { Layout, Nav } from '@douyinfe/semi-ui';
+import { Layout } from '@douyinfe/semi-ui';
 import { IconGithubLogo } from '@douyinfe/semi-icons';
 import './App.css';
 
 function App() {
 
   const [recommend, setRecommend] = useState([]);
-  const { Header, Footer, Content, Sider } = Layout;
+  const { Header, Footer, Content } = Layout;
 
   return (
     <>
       <Layout style={{ border: '1px solid var(--semi-color-border)' }}>
-        <Header>Header</Header>
-        <Layout>
-          <Sider>
-            <Nav style={{
-              height: '100%'
-            }}>
-              <DarkMode />
-            </Nav>
-          </Sider>
-          <Content style={{
-            padding: '24px',
-          }}>
-            <Input setRecommend={setRecommend} />
-            <Recommend recommend={recommend} />
-          </Content>
-        </Layout>
+        <Header>
+          <DarkMode />
+        </Header>
+        <Content style={{
+          padding: '24px',
+        }}>
+          <Input setRecommend={setRecommend} />
+          <Recommend recommend={recommend} />
+        </Content>
         <Footer
           style={{
             display: 'flex',

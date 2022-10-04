@@ -14,7 +14,3 @@ repos:
     rev: 5.0.4
     hooks:
       - id: flake8
-  - repo: https://github.com/pre-commit/mirrors-eslint
-    rev: ''
-    hooks:
-    -   id: eslint

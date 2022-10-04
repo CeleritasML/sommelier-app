@@ -8,7 +8,6 @@ export const Recommend = ({ recommend }) => {
         borderRadius: '4px',
         padding: '10px',
         margin: '10px',
-        width: '30%',
     };
 
     return (

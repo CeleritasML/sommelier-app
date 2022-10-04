@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import { Input } from './Component/Input';
+import { Recommend } from './Component/Recommend';
+import { DarkMode } from './Component/DarkMode';
+import { Layout } from '@douyinfe/semi-ui';
 
 function App() {
+
+  const [recommend, setRecommend] = useState([]);
+  const { Header, Footer, Content } = Layout;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+      <Layout>
+        <Header>Header</Header>
+        <Content>
+          <Input setRecommend={setRecommend} />
+          <Recommend recommend={recommend} />
+          <DarkMode />
+        </Content>
+        <Footer>Footer</Footer>
+      </Layout>
+    </>
+  )
 }
 
 export default App;

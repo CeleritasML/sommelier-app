@@ -29,8 +29,10 @@ def recommend():
     # Get the text from the request
     text = request.json["text"]
 
-    # Check if the text is long enough
-    if len(text) < 10:
+    # Check if the text is long enough or too long
+    if len(text) > 500:
+        return jsonify({"error": "Text too long"}), 400
+    elif len(text.strip()) < 10:
         return jsonify({"error": "Text too short, must be at least 10 characters"}), 400
 
     # Tokenize the text

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Input } from './Component/Input';
 import { Recommend } from './Component/Recommend';
 import { DarkMode } from './Component/DarkMode';
-import { Layout, Avatar, Typography } from '@douyinfe/semi-ui';
+import { Layout, Avatar, Typography, Row, Col } from '@douyinfe/semi-ui';
 import { IconGithubLogo } from '@douyinfe/semi-icons';
 import './App.css';
 
@@ -19,7 +19,7 @@ function App() {
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        padding: '20px 20px',
+                        padding: '20px',
                     }}
                 >
                     <Avatar
@@ -31,7 +31,7 @@ function App() {
                         style={{
                             fontFamily: 'Roboto Slab, sans-serif',
                             fontWeight: 'bold',
-                            fontSize: '64px',
+                            fontSize: '48px',
                             margin: '0 8px',
                         }}
                     >
@@ -39,7 +39,11 @@ function App() {
                         Sommelier
                     </Title>
                 </Header>
-                <Content style={{ padding: '24px' }}>
+                <Content
+                    style={{
+                        padding: '24px',
+                    }}
+                >
                     <div
                         style={{
                             display: 'flex',
@@ -48,7 +52,10 @@ function App() {
                     >
                         <Title
                             heading={2}
-                            style={{ margin: '8px 0', fontWeight: 'bold' }}
+                            style={{
+                                margin: '8px 0',
+                                fontWeight: 'bold',
+                            }}
                         >
                             Lorem 🥂
                         </Title>
@@ -68,29 +75,32 @@ function App() {
                         </p>
                     </span>
                     <br />
-                    <Input setRecommend={setRecommend} />
+                    <Input
+                        setRecommend={setRecommend}
+                        style={{ padding: '20px' }}
+                    />
                 </Content>
-                <Recommend recommend={recommend} />
+                <Recommend recommend={recommend} style={{ padding: '20px' }} />
+
                 <Footer
                     style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         padding: '20px',
                         color: 'var(--semi-color-text-2)',
-                        backgroundColor: 'rgba(var(--semi-grey-0), 1)',
-                        // force footer to be at the bottom of the page
-                        position: 'fixed',
-                        bottom: '0',
                         width: '100%',
                         fontFamily: 'Roboto Condensed, sans-serif',
                     }}
                 >
+                    <span>Copyright © 2022</span>
                     <span>
-                        Copyright © 2022 <span>&nbsp;</span>
-                        <a href="https://github.com/celeritasML/">
+                        Made with ❤️ by<span>&nbsp;</span>
+                        <a
+                            href="https://github.com/celeritasML/"
+                            style={{ color: 'inherit' }}
+                        >
                             Celaritas ML
                         </a>
-                        . All Rights Reserved.{' '}
                     </span>
                     <span>
                         <a

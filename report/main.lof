@@ -1,9 +1,10 @@
 \babel@toc {english}{}\relax
-\contentsline {figure}{\numberline {1}{\ignorespaces Top5 Accuracy for models on test data. \emph {Note: BERT model only has one data point as cross-validation was not performed.}\relax }}{8}{figure.caption.6}%
-\contentsline {figure}{\numberline {2}{\ignorespaces Confusion matrix of the stacked model \texttt {stacked\_ln\_l} and BERT-mini on test data.\relax }}{8}{figure.caption.7}%
-\contentsline {figure}{\numberline {3}{\ignorespaces Fit time(s) for models on training data. \emph {Note: the fit time for BERT model is estimated proportional as it was trained on the full training data.}\relax }}{9}{figure.caption.8}%
-\contentsline {figure}{\numberline {4}{\ignorespaces Score time(s) for models on validation data. \emph {Note: the score time for BERT model is estimated proportional as it was evaluated on the full validation data.}\relax }}{9}{figure.caption.9}%
-\contentsline {figure}{\numberline {5}{\ignorespaces Snapshot of app webpage. \emph {Dark mode supported.}\relax }}{10}{figure.caption.10}%
-\contentsline {figure}{\numberline {6}{\ignorespaces The header and an input box. \emph {Note: the prologue is placehold by lipsum.}\relax }}{10}{figure.caption.11}%
-\contentsline {figure}{\numberline {7}{\ignorespaces A recommendation card.\relax }}{11}{figure.caption.12}%
+\contentsline {figure}{\numberline {1}{\ignorespaces Top5 Accuracy for models on test data. \emph {Note: BERT model only has one data point as cross-validation was not performed.}\relax }}{9}{figure.caption.6}%
+\contentsline {figure}{\numberline {2}{\ignorespaces Confusion matrix of the stacked model \texttt {stacked\_ln\_l} and BERT-mini on test data.\relax }}{9}{figure.caption.7}%
+\contentsline {figure}{\numberline {3}{\ignorespaces Fit time(s) for models on training data. \emph {Note: the fit time for BERT model is estimated proportional as it was trained on the full training data.}\relax }}{10}{figure.caption.8}%
+\contentsline {figure}{\numberline {4}{\ignorespaces Score time(s) for models on validation data. \emph {Note: the score time for BERT model is estimated proportional as it was evaluated on the full validation data.}\relax }}{10}{figure.caption.9}%
+\contentsline {figure}{\numberline {5}{\ignorespaces A mock up on iPhone 13.\relax }}{11}{figure.caption.10}%
+\contentsline {figure}{\numberline {6}{\ignorespaces Snapshot of app webpage. \emph {Dark mode supported.}\relax }}{11}{figure.caption.11}%
+\contentsline {figure}{\numberline {7}{\ignorespaces The header and an input box. \emph {Note: the prologue is placehold by lipsum.}\relax }}{12}{figure.caption.12}%
+\contentsline {figure}{\numberline {8}{\ignorespaces A recommendation card.\relax }}{13}{figure.caption.13}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file

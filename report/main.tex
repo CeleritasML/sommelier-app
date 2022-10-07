@@ -1,8 +1,9 @@
 % Load the kaohandt class (with the default options)
 \documentclass[
-	%fontsize=10pt, % Base font size
-	%twoside=false, % If true, use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
-	%secnumdepth=2, % How deep to number headings. Defaults to 2 (subsections)
+	a4paper,
+	fontsize=10pt, % Base font size
+	twoside=false, % If true, use different layouts for even and odd pages (in particular, if twoside=true, the margin column will be always on the outside)
+	secnumdepth=2, % How deep to number headings. Defaults to 2 (subsections)
 	%abstract=true, % Uncomment to print the title of the abstract
 ]{kaohandt}
 
@@ -27,6 +28,7 @@
 % Load the package for hyperreferences
 \usepackage{kaorefs}
 
+% Load the package for tabularx
 \usepackage{tabularx}
 
 %----------------------------------------------------------------------------------------
@@ -37,10 +39,10 @@
 %	REPORT INFORMATION
 %----------------------------------------------------------------------------------------
 
-\title[]{Sommelier:\\ Your personal wine recommendation engine}
-\subtitle{ANLY-605 (Fall 2022) at Georgetown University\sidenote{[Project step III updated.}}
+\title[]{Sommelier:\\ A personal wine recommendation engine\sidenote{Project step III updated.}}
+\subtitle{ANLY-605 (Fall 2022) at Georgetown University}
 
-\author[]{Jingsong Gao\thanks{\href{mailto:jg2109@georgetown.edu}{jg2109@georgetown.edu}}\\
+\author[JG, EL, RQ]{Jingsong Gao\thanks{\href{mailto:jg2109@georgetown.edu}{jg2109@georgetown.edu}}\\
 Ercong Luo \thanks{\href{mailto:el890@georgetown.edu}{el890@georgetown.edu}}\\
 Rui Qiu \thanks{\href{mailto:rq47@georgetown.edu}{rq47@georgetown.edu}}}
 
@@ -51,7 +53,13 @@ Rui Qiu \thanks{\href{mailto:rq47@georgetown.edu}{rq47@georgetown.edu}}}
 %----------------------------------------------------------------------------------------
 
 \maketitle
-\margintoc
+\newpage
+\tableofcontents
+\listoffigures % Output the list of figures
+\listoftables % Output the list of tables
+\newpage
+% \margintoc
+
 
 % \begin{abstract}
 % \noindent
@@ -68,19 +76,19 @@ Rui Qiu \thanks{\href{mailto:rq47@georgetown.edu}{rq47@georgetown.edu}}}
 
 \section{Project Description}
 
-\subsection*{General Description}
+\subsection{General Description}
 
 With our app Sommelier, an end user can find recommendations of wine region and grape varietals based on a few keywords of flavor notes. This saves them the time, money and liver to try many bottles of wine that they don’t like.
 
-\subsection*{Project Deliveries}
+\subsection{Project Deliveries}
 
 An interactive web application where the end user inputs a description of their wine preference, and the application surfaces a list of top 5 recommendations of \texttt{<wine region, grape variety>} pairs. The back-end of the application is where natural language processing and machine learning algorithms are deployed to surface recommendations at the highest accuracy possible.
 
-\subsection*{Out of Scope}
+\subsection{Out of Scope}
 
 This project will not include any background educational knowledge on wine tasting. Nor will the application have any mechanisms for collecting user feedback in the first release.
 
-\subsection*{Assumptions}
+\subsection{Assumptions}
 
 We assume that:
 
@@ -89,7 +97,7 @@ We assume that:
 	\item The primary factors that influence the flavor of a wine are the region of production and the grape varietal, hence the choice of surfacing \texttt{<wine region, grape variety>} pairs as recommendations to an end user.
 \end{enumerate}
 
-\subsection*{Constraints}
+\subsection{Constraints}
 
 For the constraints, we have:
 
@@ -106,7 +114,7 @@ For the constraints, we have:
 	\item \textbf{Discrepancy Between Descriptions and Reviews:} We will use text-based reviews as proxies for a user’s description of their wine preference. Admittedly, this will now account for the variance in user input in terms of word choice preference, sentence lengths, and subjective bias that cannot be captured by our language model.
 \end{itemize}
 
-\subsection*{Development Roadmap}
+\subsection{Development Roadmap}
 
 Because most NLP models today are based on transformers, and our early thought for this project is that a transformer-based model is going to outperform a traditional model like SVM or tree-based ensemble learning. That being said, we still followed class requirements and trained models such as an SVM, a perceptron, and a naive Bayes classifier from sklearn and constructed a stacked model. We included evaluations for both the transformer model (BERT-mini) and the stacked ensemble model.
 
@@ -135,7 +143,7 @@ Sommelier App takes advantage of natural language processing and machine learnin
 
 \section{Analysis of the Dataset of Trained Model}
 
-\subsection*{Exploratory Analysis}
+\subsection{Exploratory Analysis}
 
 Since our dataset is text-based, the exploratory data analysis (EDA) procedure is rather limited. A typical sample of data is listed in Table~\ref{tab:raw_samples}. \\
 
@@ -171,7 +179,7 @@ The keywords are vectorized into a feature vector of length 6081, and a slice of
 
 \texttt{Vectorizer features: ['bell', 'bellangelo', 'belzbrunnen', 'benito', 'benjamin', 'berenguer', 'beresan', 'bergamot', 'bergerac', 'bernard', 'berried', 'berries', 'berry', 'berryish', 'berrylicious', 'bertani', 'best', 'better', 'betz', 'beverage', 'bianca', 'bianco', 'biancolella', 'bical', 'bieler', 'bienenberg', 'big', 'bigger', 'biggest', 'bigtime', 'bilberry', 'bill', 'billards', 'billing', 'billo', 'bing', 'biodynamic', 'biodynamically', 'birch', 'bird', 'birds', 'biscotti', 'biscuit', 'biscuits', 'biscuity', 'bisquertt', 'bistro', 'bite', 'bites', 'biting', 'bitner', 'bits', 'bitter', 'bitterness', 'bitters', 'bittersweet', 'black', 'blackberries', 'blackberrry', 'blackberry', 'blackcurrant', 'blackened', 'blackness', 'blacktop', 'blanc', 'blanca', 'blanched', 'blanco', 'blancs', 'bland', 'blangé', 'blasting', 'blatant', 'blaufränkisch', 'blaye', 'blazing', 'blend', 'blended', 'blending', 'blends', 'bleue', 'blind', 'bliss', 'blockbuster', 'blockier', 'blocks', 'blocky', 'blood', 'bloody', 'bloom', 'blossom', 'blossoms', 'blossomy', 'blowsy', 'blue', 'blueberries', 'blueberry', 'bluebery', 'blush', 'board']}
 
-\subsection*{Baseline Model: BERT-mini}
+\subsection{Baseline Model: BERT-mini}
 
 Our baseline model is a little bit “unorthodox”. We use the \href{https://huggingface.co/google/bert_uncased_L-4_H-256_A-4}{BERT-mini} model with the raw review texts as inputs. There are several reasons for this:
 
@@ -186,7 +194,7 @@ Our baseline model is a little bit “unorthodox”. We use the \href{https://hu
 
 On a single GPU, it took 35 minutes to finetune BERT-mini on the full training data and 7 seconds to evaluate the model on the full test data. The top-5 accuracy is 92.0\% on the training data and 83.4\% on the test data.
 
-\subsection*{Metric: Top-5 Accuracy}
+\subsection{Metric: Top-5 Accuracy}
 
 In classification tasks, we usually use \textbf{accuracy} (or top-1 accuracy) as a metric for model evaluation. An evaluation is considered accurate only when the model prediction and the true label are identical.
 
@@ -203,7 +211,7 @@ By \textbf{top-5 accuracy}, we meet that an evaluation is considered accurate if
 
 \section{Model Selection}
 
-\subsection*{Individual Models and Stacked Model}
+\subsection{Individual Models and Stacked Model}
 
 Since we are selecting candidate models for stacking, and ultimately competing with BERT-mini, we have decided to start from basic classification models ranging from Multinomial Naïve Bayes, Perceptron, Linear Support Vector Machine Classifier, Decision Tree Classifier, and Logistic Regression Classifier as our candidates.
 
@@ -234,7 +242,7 @@ We trained two combinations of stacked model following the naming convention bel
 
 We ruled out the ensemble models in stacking, since the training time of ensemble models in our case is comparatively long due to the size and feature number of the dataset.
 
-\subsection*{Model Performance Evaluation}
+\subsection{Model Performance Evaluation}
 
 From the previous boxplot, we learned that the stacking method did not take the model performance to the next level. The performance of BERT-mini is still far better.
 
@@ -254,7 +262,7 @@ Another takeaway from the confusion matrices is that BERT-mini has a tendency to
 
 Bear in mind that we haven’t done any hyperparameter tuning in either stacked model or BERT, plus the performances in training dataset imply the existence of potential overfitting.
 
-\subsection*{Cost Estimation}
+\subsection{Cost Estimation}
 
 The last two aspects we would like to investigate are the fit time (Figure~\ref{fig:fit_time}) and score time (Figure~\ref{fig:score_time}), which are used to imitate the runtime of training and actual prediction.
 
@@ -279,7 +287,7 @@ BERT-mini falls to the bottom of the league in terms of score time competition. 
 
 \section{Initial Deployment}
 
-\subsection*{Overview}
+\subsection{Overview}
 
 Dark mode support.
 
@@ -292,7 +300,7 @@ Dark mode support.
 
 Mobile, responsive design.
 
-\subsection*{Input box and Recommendation Cards}
+\subsection{Input box and Recommendation Cards}
 
 \begin{figure}[h]
 	\includegraphics[]{sommelier-view-03.jpg}
@@ -306,7 +314,7 @@ Mobile, responsive design.
 	\label{fig:app_rec_card}
 \end{figure}
 
-\subsection*{Heroku Application}
+\subsection{Heroku Application}
 
 \subsubsection*{The Platform, and the Repository}
 
@@ -321,11 +329,11 @@ GitHub repository \href{https://github.com/CeleritasML/sommelier-app}{https://gi
 Write here your introduction,\sidecite{James2013} and make sure to
 reference your sources.
 
-\blindtext\sidenote[][*-8]{\blindtext}
+\blindtext\sidenote[][]{\blindtext}
 
 \appendix % From here onwards, chapters are numbered with letters, as is the appendix convention
 
-\section{Appendix}
+\section{Appendix A: Appendix Title}
 
 \blindtext
 

@@ -137,25 +137,33 @@ Sommelier App takes advantage of natural language processing and machine learnin
 
 \subsection*{Exploratory Analysis}
 
-Since our dataset is text-based, the exploratory data analysis (EDA) procedure is rather limited. A typical sample of data looks like this: \\
+Since our dataset is text-based, the exploratory data analysis (EDA) procedure is rather limited. A typical sample of data is listed in Table~\ref{tab:raw_samples}. \\
 
-\begin{tabular}{lll} \toprule
-	\texttt{} & \texttt{Description} & \texttt{region\_variety}  \\ \midrule
-	\texttt{0} & \texttt{The deep red-black color reaches...} & \texttt{France-Languedoc-Roussillon:Cabernet Sauvignon}  \\
-	\texttt{1} & \texttt{Complexity and varietal character...} & \texttt{US-California:Merlot} \\
-	\texttt{2} & \texttt{Rhubarb and cranberry fruit, along...} & \texttt{US-Oregon:Pinot Noir} \\ \bottomrule
-\end{tabular}\\
+\begin{table}[ht]
+	\begin{tabular}{lll} \toprule
+		\tiny\texttt{} & \tiny\texttt{Description} & \tiny\texttt{region\_variety}  \\ \midrule
+		\tiny\texttt{0} & \tiny\texttt{The deep red-black color reaches...} & \tiny\texttt{France-Languedoc-Roussillon:Cabernet Sauvignon}  \\
+		\tiny\texttt{1} & \tiny\texttt{Complexity and varietal character...} & \tiny\texttt{US-California:Merlot} \\
+		\tiny\texttt{2} & \tiny\texttt{Rhubarb and cranberry fruit, along...} & \tiny\texttt{US-Oregon:Pinot Noir} \\ \bottomrule
+	\end{tabular}
+	\caption{Two samples in raw data.}
+	\label{tab:raw_samples}
+\end{table}
 
-After preprocessing, the data we use to train the model looks like: \\
+After preprocessing, the sample data we use to train the model are listed in Table~\ref{tab:processed_samples}. \\
 
-\begin{tabular}{lll} \toprule
-	\texttt{} & \texttt{keywords} & \texttt{region\_variety}  \\ \midrule
-	\texttt{0} & \texttt{core adequate acidity moderate...} & \texttt{265}  \\
-	\texttt{1} & \texttt{complexity varietal character black plum...} & \texttt{17} \\
-	\texttt{2} & \texttt{rhubarb cranberry fruit red apple light simple...} & \texttt{4} \\
-	\texttt{3} & \texttt{impressive fullness ripeness black cherry leat...} & \texttt{251} \\
-	\texttt{4} & \texttt{dusty tones mineral saffron pollen concentrate...} & \texttt{11} \\ \bottomrule
-\end{tabular}\\
+\begin{table}[ht]
+	\begin{tabular}{lll} \toprule
+		\tiny\texttt{} & \tiny\texttt{keywords} & \tiny\texttt{region\_variety}  \\ \midrule
+		\tiny\texttt{0} & \tiny\texttt{core adequate acidity moderate...} & \tiny\texttt{265}  \\
+		\tiny\texttt{1} & \tiny\texttt{complexity varietal character black plum...} & \tiny\texttt{17} \\
+		\tiny\texttt{2} & \tiny\texttt{rhubarb cranberry fruit red apple light simple...} & \tiny\texttt{4} \\
+		\tiny\texttt{3} & \tiny\texttt{impressive fullness ripeness black cherry leat...} & \tiny\texttt{251} \\
+		\tiny\texttt{4} & \tiny\texttt{dusty tones mineral saffron pollen concentrate...} & \tiny\texttt{11} \\ \bottomrule
+	\end{tabular}\\
+	\caption{Five pre-processed samples. \emph{(Descriptive keywords are extracted from raw reviews, region\_variety pairs are converted to numeric labels)}}
+	\label{tab:processed_samples}
+\end{table}
 
 There are in total 584 region varieties in the dataset. A slim version of 11680 records are included as the training set of all candidate models below.
 
@@ -199,7 +207,7 @@ By \textbf{top-5 accuracy}, we meet that an evaluation is considered accurate if
 
 Since we are selecting candidate models for stacking, and ultimately competing with BERT-mini, we have decided to start from basic classification models ranging from Multinomial Naïve Bayes, Perceptron, Linear Support Vector Machine Classifier, Decision Tree Classifier, and Logistic Regression Classifier as our candidates.
 
-The figure below demonstrates the classification accuracy (top-5 accuracy) on the testing set, and we can see that Logistic Regression, Naive Bayes, and Linear SVM are 3 top candidates. Don’t be fooled by the accuracy barely past 0.5, it’s already pretty impressive considering the problem we are tackling is to find the top 5 recommendations from over 500 wines that fit a verbal description. And this is achieved even without hyperparameter tuning.
+Figure~\ref{fig:acc_test} demonstrates the classification accuracy (top-5 accuracy) on the testing set, and we can see that Logistic Regression, Naive Bayes, and Linear SVM are 3 top candidates. Don’t be fooled by the accuracy barely past 0.5, it’s already pretty impressive considering the problem we are tackling is to find the top 5 recommendations from over 500 wines that fit a verbal description. And this is achieved even without hyperparameter tuning.
 
 The strategy and sequence we used to find the right candidates can be summarized in two sentences:
 
@@ -218,7 +226,11 @@ We trained two combinations of stacked model following the naming convention bel
 	\item And \texttt{stacked\_ls\_l}, a stacking classifier with a logistic regression + a linear SVM as level 0, and a logistic classifier (again) as level 1.
 \end{itemize}
 
-\includegraphics{metric_test_score}
+\begin{figure}[h]
+	\includegraphics{metric_test_score}
+	\caption{Top5 Accuracy for models on test data. \emph{Note: BERT model only has one data point as cross-validation was not performed.}}
+	\label{fig:acc_test}
+\end{figure}
 
 We ruled out the ensemble models in stacking, since the training time of ensemble models in our case is comparatively long due to the size and feature number of the dataset.
 
@@ -226,29 +238,42 @@ We ruled out the ensemble models in stacking, since the training time of ensembl
 
 From the previous boxplot, we learned that the stacking method did not take the model performance to the next level. The performance of BERT-mini is still far better.
 
-If we compare the confusion matrices of \texttt{stacked\_ln\_l} versus BERT-mini side-by-side, the BERT-mini has brighter-colored pixels concentrating on the diagonal line.
+\begin{figure}[h]
+	\includegraphics[width=0.49\textwidth]{confusion_matrix_stacked_ln_l_test}
+	\includegraphics[width=0.49\textwidth]{confusion_matrix_bert_test}
+	\caption{Confusion matrix of the stacked model \texttt{stacked\_ln\_l} and BERT-mini on test data.}
+	\label{fig:conf_mat}
+\end{figure}
+
+If we compare the confusion matrices of \texttt{stacked\_ln\_l} versus BERT-mini side-by-side (Figure~\ref{fig:conf_mat}), the BERT-mini has brighter-colored pixels concentrating on the diagonal line.
 
 Note that both diagonal lines seem to be in greenish-blue color, however, the actual values are close to 0.5 (stacked model) and 1 (BERT-mini) respectively. This is caused by \href{https://matplotlib.org/stable/gallery/images_contours_and_fields/interpolation_methods.html}{the interpolation method for \texttt{imshow}}. Basically, the color values of each pixel are averaged to its neighbors because the original heatmap is too big to display on a small figure.
 
 Another takeaway from the confusion matrices is that BERT-mini has a tendency to predict the response to be within class 0 and class 200. However, this is more like a coincidence as the numeric value in class is nothing but an index, which is not ordinal.
 
-\includegraphics{confusion_matrix_stacked_ln_l_test}
-
-\includegraphics{confusion_matrix_bert_test}
 
 Bear in mind that we haven’t done any hyperparameter tuning in either stacked model or BERT, plus the performances in training dataset imply the existence of potential overfitting.
 
 \subsection*{Cost Estimation}
 
-The last two aspects we would like to investigate are the fit time and score time, which are used to imitate the runtime of training and actual prediction.
+The last two aspects we would like to investigate are the fit time (Figure~\ref{fig:fit_time}) and score time (Figure~\ref{fig:score_time}), which are used to imitate the runtime of training and actual prediction.
 
-\includegraphics[]{metric_fit_time.png}
+\begin{figure}[h]
+	\includegraphics[]{metric_fit_time.png}
+	\caption{Fit time(s) for models on training data. \emph{Note: the fit time for BERT model is estimated proportional as it was trained on the full training data.}}
+	\label{fig:fit_time}
+\end{figure}
 
 Surprisingly, BERT-mini does not top the fit time in our test run. Of course, the five basic candidates are fast, and we have to admit that the logistic regression classifier is not bad in performance as well. Even though we managed to control the complexity of those two stacked models, they generally took more time to train and gave out unreliable predictions.
 
 In practice, when we set a periodic batch job scheduled, say it’s designed to train the model with new data, the more time we need to train the model, the higher computation resources we need to fulfill such a task. And this can be translated into higher cost for the company.
 
-\includegraphics[]{metric_score_time.png}
+\begin{figure}[h]
+	\includegraphics[]{metric_score_time.png}
+	\caption{Score time(s) for models on validation data. \emph{Note: the score time for BERT model is estimated proportional as it was evaluated on the full validation data.}}
+	\label{fig:score_time}
+\end{figure}
+
 
 BERT-mini falls to the bottom of the league in terms of score time competition. The score time in production can be translated into waiting time for the end user. But 2.5 seconds response time in frontend is not the end of the world, and hopefully this could be potentially compensated by some web page optimization tricks. Nevertheless, we should be aware of the risk of large amounts of concurrent requests in an imaginary scenario. Making the application a real-time experience is a key optimization goal for our project.
 
@@ -258,15 +283,28 @@ BERT-mini falls to the bottom of the league in terms of score time competition. 
 
 Dark mode support.
 
-\includegraphics[width=0.5\textwidth]{sommelier-view-01.jpg}
-\includegraphics[width=0.5\textwidth]{sommelier-view-02.jpg}
+\begin{figure}[h]
+	\includegraphics[width=0.49\textwidth]{sommelier-view-01.jpg}
+	\includegraphics[width=0.49\textwidth]{sommelier-view-02.jpg}
+	\caption{Snapshot of app webpage. \emph{Dark mode supported.}}
+	\label{fig:app_overview}
+\end{figure}
 
 Mobile, responsive design.
 
 \subsection*{Input box and Recommendation Cards}
 
-\includegraphics[]{sommelier-view-03.jpg}
-\includegraphics[]{sommelier-view-04.jpg}
+\begin{figure}[h]
+	\includegraphics[]{sommelier-view-03.jpg}
+	\caption{The header and an input box. \emph{Note: the prologue is placehold by lipsum.}}
+	\label{fig:app_input}
+\end{figure}
+
+\begin{figure}[h]
+	\includegraphics[]{sommelier-view-04.jpg}
+	\caption{A recommendation card.}
+	\label{fig:app_rec_card}
+\end{figure}
 
 \subsection*{Heroku Application}
 

@@ -273,7 +273,7 @@ Bear in mind that we haven’t done any hyperparameter tuning in either stacked 
 
 \subsection{Cost Estimation}
 
-The last two aspects we would like to investigate are the fit time (Figure~\ref{fig:fit_time}) and score time (Figure~\ref{fig:score_time}), which are used to imitate the runtime of training and actual prediction.
+The last two aspects we would like to investigate are the fit time (Figure~\ref{fig:fit_time}) and inferencing time (Figure~\ref{fig:infer_time}), which are used to imitate the runtime of training and actual prediction.
 
 \begin{figure}[h]
 	\includegraphics[]{metric_fit_time.png}
@@ -286,9 +286,9 @@ Surprisingly, BERT-mini does not top the fit time in our test run. Of course, th
 In practice, when we set a periodic batch job scheduled, say it’s designed to train the model with new data, the more time we need to train the model, the higher computation resources we need to fulfill such a task. And this can be translated into higher cost for the company.
 
 \begin{figure}[h]
-	\includegraphics[]{metric_score_time.png}
-	\caption{Score time(s) for models on validation data. \emph{Note: the score time for BERT model is estimated proportional as it was evaluated on the full validation data.}}
-	\label{fig:score_time}
+	\includegraphics[]{inference_time.png}
+	\caption{Average inference time(ms) per sample for models.}
+	\label{fig:infer_time}
 \end{figure}
 
 

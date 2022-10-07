@@ -333,4 +333,18 @@ lightning_logs/
 # pickle files
 *.pkl
 
+# latex intermediate files
+
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.mw
+*.run.xml
+*.synctex.gz
+*.toc
+
 .vscode/

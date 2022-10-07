@@ -291,8 +291,7 @@ In practice, when we set a periodic batch job scheduled, say it’s designed to 
 	\label{fig:infer_time}
 \end{figure}
 
-
-BERT-mini falls to the bottom of the league in terms of score time competition. The score time in production can be translated into waiting time for the end user. In fact, 2.5 seconds response time is the runtime of $584\times 20 /5=2336$ samples. In other words, in a hypothetical scenario where two thousands users are using Sommelier at the same time, the maximum waiting time is just 2.5 seconds, which is not unacceptable. Nevertheless, we should be aware of the risk of large amounts of concurrent requests in an imaginary scenario. Making the application a real-time experience is a key optimization goal for our project.
+We run the inference sequentially over 1000 samples and calculate the average inference time per sample. Similarly, BERT-mini is not the fastest one either. The inference time in production can be translated into waiting time for each end user, and 3 milliseconds per request is blazingly fast. Nevertheless, we should be aware of the risk of large amounts of concurrent requests in an imaginary scenario. Making the application a real-time experience is a key optimization goal for our project.
 
 \newpage
 

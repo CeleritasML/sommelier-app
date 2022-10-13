@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Input } from './Component/Input';
 import { Recommend } from './Component/Recommend';
 import { DarkMode } from './Component/DarkMode';
+import { Select, Selector } from './Component/Select';
 import { Layout, Avatar, Typography, Row, Col } from '@douyinfe/semi-ui';
 import { IconGithubLogo } from '@douyinfe/semi-icons';
 import './App.css';

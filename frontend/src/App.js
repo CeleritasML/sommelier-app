@@ -2,8 +2,7 @@ import { useState } from 'react';
 import { Input } from './Component/Input';
 import { Recommend } from './Component/Recommend';
 import { DarkMode } from './Component/DarkMode';
-import { Select, Selector } from './Component/Select';
-import { Layout, Avatar, Typography, Row, Col } from '@douyinfe/semi-ui';
+import { Layout, Avatar, Typography } from '@douyinfe/semi-ui';
 import { IconGithubLogo } from '@douyinfe/semi-icons';
 import './App.css';
 
@@ -73,6 +72,12 @@ function App() {
                             eu fugiat nulla pariatur. Excepteur sint occaecat
                             cupidatat non proident, sunt in culpa qui officia
                             deserunt mollit anim id est laborum.
+                        </p>
+                        <p>
+                            <b>
+                                You are welcome to type your own description of
+                                wines.
+                            </b>
                         </p>
                     </span>
                     <br />

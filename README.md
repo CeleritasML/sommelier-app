@@ -1,5 +1,9 @@
 # Sommerlier Web App
 
+<p align="center">
+  <img height="150" src="img/avatar.jpg">
+</p>
+
 # Env Setup
 
 ```

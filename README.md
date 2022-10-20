@@ -36,3 +36,11 @@ python train.py
 # run this command in poetry env
 python app.py
 ```
+
+# Start Node Server
+
+```
+# in another terminal (process)
+cd frontend
+npm start
+```

@@ -17,6 +17,42 @@ with open("models/idx_to_keywords.json", "r") as f:
     idx_to_keywords = json.load(f)
 
 
+def predict(texts):
+    """Predicts the keywords for a list of texts"""
+    # Tokenize the texts
+    inputs = tokenizer(texts, return_tensors="np")
+    # Run the model
+    output = bert.run(output_names=["logits"], input_feed=dict(inputs))
+    logits = output[0]
+    # Convert the logits to probabilities
+    probs = np.exp(logits) / np.exp(logits).sum(axis=1, keepdims=True)
+    # Get the top 5 predictions
+    top5 = probs.argsort(axis=1)[:, -5:]
+    # Convert the idx to wine info
+    results = []
+    for i, _ in enumerate(texts):
+        predictions = []
+        for rank, idx in enumerate(top5[i]):
+            label = idx_to_keywords[idx]["label"]
+            region, variety = label.split(":")
+            region_split = region.split("-")
+            country = region_split[0]
+            province = region_split[1] if len(region_split) > 1 else None
+            predictions.append(
+                {
+                    "country": country,
+                    "province": province,
+                    "variety": variety,
+                    "special_keywords": idx_to_keywords[idx]["special_keywords"],
+                    "common_keywords": idx_to_keywords[idx]["common_keywords"],
+                    "probability": float(probs[i][idx]),
+                    "rank": rank,
+                }
+            )
+        results.append(predictions)
+    return results
+
+
 @app.route("/api/recommend", methods=["POST"])
 def recommend():
     # Check if the request is valid
@@ -35,38 +71,34 @@ def recommend():
     elif len(text.strip()) < 10:
         return jsonify({"error": "Text too short, must be at least 10 characters"}), 400
 
-    # Tokenize the text
-    inputs = tokenizer(text, return_tensors="np")
+    results = predict([text])
+    return jsonify(results[0])
 
-    # Run the model
-    output = bert.run(output_names=["logits"], input_feed=dict(inputs))
-    logits = output[0][0]
 
-    # Get the top 5 predictions
-    probs = np.exp(logits) / np.sum(np.exp(logits))
-    top5_idx = probs.argsort()[-5:][::-1]
+@app.route("/api/recommends", methods=["POST"])
+def recommends():
+    # Check if the request is valid
+    if not request.is_json:
+        return jsonify({"error": "Invalid request"}), 400
 
-    # Format the predictions
-    predictions = []
-    for rank, idx in enumerate(top5_idx):
-        label = idx_to_keywords[idx]["label"]
-        region, variety = label.split(":")
-        region_split = region.split("-")
-        country = region_split[0]
-        province = region_split[1] if len(region_split) > 1 else None
-        predictions.append(
-            {
-                "country": country,
-                "province": province,
-                "variety": variety,
-                "special_keywords": idx_to_keywords[idx]["special_keywords"],
-                "common_keywords": idx_to_keywords[idx]["common_keywords"],
-                "probability": float(probs[idx]),
-                "rank": rank,
-            }
-        )
+    if "texts" not in request.json:
+        return jsonify({"error": "Missing `texts` field in request"}), 400
 
-    return jsonify(predictions)
+    # Get the texts from the request
+    texts = request.json["texts"]
+
+    # Check if the texts are long enough or too long
+    for text in texts:
+        if len(text) > 500:
+            return jsonify({"error": "Text too long"}), 400
+        elif len(text.strip()) < 10:
+            return (
+                jsonify({"error": "Text too short, must be at least 10 characters"}),
+                400,
+            )
+
+    results = predict(texts)
+    return jsonify(results)
 
 
 @app.route("/")

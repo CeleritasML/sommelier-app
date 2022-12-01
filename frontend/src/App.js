@@ -57,21 +57,33 @@ function App() {
                                 fontWeight: 'bold',
                             }}
                         >
-                            Lorem 🥂
+                            Hi, 🥂
                         </Title>
                         <DarkMode />
                     </div>
                     <span>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat. Duis aute irure dolor in
-                            reprehenderit in voluptate velit esse cillum dolore
-                            eu fugiat nulla pariatur. Excepteur sint occaecat
-                            cupidatat non proident, sunt in culpa qui officia
-                            deserunt mollit anim id est laborum.
+                            Whenever we talk to a wine connoisseur, we will hear
+                            them talk about their wine preferences based on two
+                            primary factors: the region where the wine is from
+                            and the grape varietal from which the wine is made.
+                            It is obviously a steep learning curve for a
+                            newcomer to know their personal wine preferences in
+                            terms of these two primary factors because it
+                            requires trial and error that most of us don’t have
+                            the money, time or the liver to do. But what if we
+                            have our personal digital wine steward, or a
+                            sommelier as the French call it? That is what our
+                            app is for.
+                        </p>
+                        <p>
+                            Sommelier App takes advantage of natural language
+                            processing and machine learning algorithms, trained
+                            using a dataset of 117283 wine reviews written by
+                            expert wine tasters to learn the differences in
+                            described flavor notes that differentiate a dataset
+                            of over 500 <code>(region, grape varietal)</code>{' '}
+                            pairs.
                         </p>
                         <p>
                             <b>

@@ -27,7 +27,7 @@ def predict(texts):
     # Convert the logits to probabilities
     probs = np.exp(logits) / np.exp(logits).sum(axis=1, keepdims=True)
     # Get the top 5 predictions
-    top5 = probs.argsort(axis=1)[:, -5:]
+    top5 = probs.argsort(axis=1)[:, -5:][:, ::-1]
     # Convert the idx to wine info
     results = []
     for i, _ in enumerate(texts):
